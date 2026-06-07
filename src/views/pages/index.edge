@@ -1,85 +1,870 @@
 @component('layouts/main')
   @slot('title')
-    njin
+    Rumah Sunat Medika Arshaka
   @end
 
   @slot('main')
-    <div class="relative min-h-screen flex flex-col bg-slate-950 text-slate-100 overflow-hidden">
+    <div class="bg-white text-slate-800">
 
-      {{-- Background --}}
-      <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute inset-0" style="background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(139,92,246,0.12) 0%,transparent 70%)"></div>
-        <div class="absolute inset-0" style="background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:80px 80px"></div>
-        <div class="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-700/50 to-transparent"></div>
-      </div>
+      {{-- ═══════════════════════════════════════════════════
+          NAVBAR
+      ════════════════════════════════════════════════════ --}}
+      <nav class="sticky top-0 z-50 bg-white border-b border-slate-100" x-data="{ mobileOpen: false }">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
-      {{-- Top nav --}}
-      <nav class="relative z-10 flex items-center justify-end px-8 py-6">
-        <div class="flex items-center gap-1 text-sm">
-          <a href="/api/auth/login"
-             class="px-4 py-2 text-slate-400 hover:text-slate-100 rounded-lg hover:bg-slate-800/60 transition-all duration-200">
-            Log in
+          {{-- Logo --}}
+          <a href="#" class="flex items-center flex-shrink-0">
+            <img src="/logo.png" alt="Rumah Sunat Medika Arshaka" class="h-8 w-auto max-w-[140px] lg:max-w-none lg:h-10">
           </a>
-          <a href="#"
-             class="px-4 py-2 text-slate-100 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/50 rounded-lg transition-all duration-200">
-            Register
+
+          {{-- Desktop nav links --}}
+          <div class="hidden md:flex items-center gap-7">
+            @each(link in [
+              { label: 'Layanan', href: '#layanan' },
+              { label: 'Metode', href: '#metode' },
+              { label: 'Harga', href: '#harga' },
+              { label: 'Dokter', href: '#dokter' },
+            ])
+              <a href="{{ link.href }}" class="text-sm text-slate-500 hover:text-slate-900 transition-colors">{{ link.label }}</a>
+            @end
+          </div>
+
+          {{-- Desktop CTA --}}
+          <a href="https://wa.me/6285946132660"
+             class="hidden md:flex items-center gap-2 px-5 py-2.5 text-sm font-semibold bg-accent-500 text-white rounded-full hover:bg-accent-600 transition-colors">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            Konsultasi Gratis
+          </a>
+
+          {{-- Mobile hamburger --}}
+          <button class="md:hidden p-1.5 text-slate-500 hover:text-slate-800 transition-colors" @click="mobileOpen = !mobileOpen" aria-label="Menu">
+            <span x-show="!mobileOpen"><i data-lucide="menu" class="w-5 h-5"></i></span>
+            <span x-show="mobileOpen" style="display:none;"><i data-lucide="x" class="w-5 h-5"></i></span>
+          </button>
+        </div>
+
+        {{-- Mobile dropdown --}}
+        <div x-show="mobileOpen" x-transition class="md:hidden border-t border-slate-100 bg-white px-6 py-5 flex flex-col gap-4" style="display:none;">
+          @each(link in [
+            { label: 'Layanan', href: '#layanan' },
+            { label: 'Metode', href: '#metode' },
+            { label: 'Harga', href: '#harga' },
+            { label: 'Dokter', href: '#dokter' },
+          ])
+            <a href="{{ link.href }}" class="text-sm text-slate-600 hover:text-primary-700 transition-colors" @click="mobileOpen = false">{{ link.label }}</a>
+          @end
+          <a href="https://wa.me/6285946132660"
+             class="flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold bg-accent-500 text-white rounded-full hover:bg-accent-600 transition-colors">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            Konsultasi Gratis
           </a>
         </div>
       </nav>
 
-      {{-- Center --}}
-      <main class="relative z-10 flex-1 flex items-center justify-center px-6">
-        <div
-          x-data="{ show: false }"
-          x-init="requestAnimationFrame(() => show = true)"
-          :class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'"
-          class="text-center transition-all duration-700 ease-out"
-        >
+      {{-- ═══════════════════════════════════════════════════
+          HERO
+      ════════════════════════════════════════════════════ --}}
+      <section class="relative bg-white overflow-hidden">
+        {{-- Decorative blob — clipped within section, no horizontal overflow --}}
+        <div class="absolute top-0 right-0 w-[520px] h-[520px] rounded-full bg-primary-50 -translate-y-1/3 pointer-events-none" aria-hidden="true"></div>
 
-          {{-- Wordmark --}}
-          <h1 class="text-8xl md:text-9xl font-bold tracking-tighter mb-4 bg-gradient-to-b from-slate-100 to-slate-400 bg-clip-text text-transparent leading-none select-none">
-            njin
-          </h1>
+        <div class="relative max-w-6xl mx-auto px-6 pt-20 pb-28 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-          {{-- Tagline --}}
-          <p class="text-slate-500 text-lg tracking-wide mb-10">
-            Build beautiful websites.
-          </p>
+          {{-- ── Left: Copy ── --}}
+          <div class="max-w-lg">
 
-          {{-- Divider --}}
-          <div class="flex items-center justify-center gap-3 mb-10">
-            <div class="h-px w-16 bg-gradient-to-r from-transparent to-slate-700"></div>
-            <div class="w-1.5 h-1.5 rounded-full bg-violet-500/60"></div>
-            <div class="h-px w-16 bg-gradient-to-l from-transparent to-slate-700"></div>
+            {{-- Trust chip --}}
+            <div class="inline-flex items-center gap-2 bg-primary-50 border border-primary-200 rounded-full px-4 py-1.5 mb-7">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-primary-600 flex-shrink-0"></i>
+              <span class="text-xs font-semibold text-primary-700 font-label tracking-wide">Klinik Sunat Terpercaya di Tangerang</span>
+            </div>
+
+            <h1 class="text-[2.4rem] lg:text-[2.9rem] font-bold leading-[1.1] tracking-tight text-slate-900 mb-6">
+              Tenang di<br>
+              Tangan yang <span class="text-primary-600">Tepat</span>
+            </h1>
+
+            <p class="text-slate-500 text-lg leading-relaxed mb-9">
+              Sunat aman, nyaman, dan terjangkau untuk buah hati Anda — ditangani dokter bersertifikat dengan metode modern di Tangerang.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-3 mb-10">
+              <a href="https://wa.me/6285946132660"
+                 class="flex items-center gap-2 px-7 py-3.5 bg-accent-500 text-white font-semibold rounded-full hover:bg-accent-600 transition-all hover:shadow-lg hover:shadow-accent-500/30">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                Konsultasi Gratis via WhatsApp
+              </a>
+              <a href="#layanan"
+                 class="px-6 py-3.5 border border-slate-200 text-slate-600 font-medium rounded-full hover:border-primary-300 hover:text-primary-700 transition-colors">
+                Lihat Layanan
+              </a>
+            </div>
+
+            {{-- Social proof --}}
+            <div class="flex items-center gap-4">
+              <div class="flex -space-x-2.5">
+                @each(_ in [1,2,3,4])
+                  <div class="w-9 h-9 rounded-full bg-primary-100 border-2 border-white flex items-center justify-center">
+                    <i data-lucide="user" class="w-4 h-4 text-primary-400"></i>
+                  </div>
+                @end
+              </div>
+              <div>
+                <div class="text-accent-400 text-sm mb-0.5 tracking-tight">★★★★★</div>
+                <div class="text-sm text-slate-500">Dipercaya <strong class="text-slate-700 font-semibold">1.200+</strong> orang tua</div>
+              </div>
+            </div>
           </div>
 
-          {{-- Links --}}
-          <div class="flex flex-wrap items-center justify-center gap-2">
-            @each(link in [
-              { label: 'Documentation', href: '#' },
-              { label: 'GitHub',        href: '#' },
-              { label: 'Changelog',     href: '#' },
-            ])
-              <a
-                href="{{ link.href }}"
-                class="inline-flex items-center gap-1.5 px-5 py-2.5 text-sm text-slate-400 hover:text-slate-100 bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800/80 hover:border-slate-700/80 rounded-xl transition-all duration-200 backdrop-blur-sm"
-              >
-                {{ link.label }}
-                <svg class="w-3 h-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
+          {{-- ── Right: Bento image collage ── --}}
+          <div class="relative">
+
+            {{-- 3-image staggered collage --}}
+            <div class="flex gap-3 h-[400px] sm:h-[460px] lg:h-[540px]">
+
+              {{-- Primary image: tall left column --}}
+              <div class="flex-1 rounded-3xl overflow-hidden">
+                <img src="/hero1.webp" alt="Klinik Sunat Medika Arshaka" class="w-full h-full object-cover">
+              </div>
+
+              {{-- Secondary column: two stacked images, offset down --}}
+              <div class="w-[42%] flex flex-col gap-3 pt-12">
+                <div class="flex-1 rounded-2xl overflow-hidden">
+                  <img src="/hero2.webp" alt="Dokter Medika Arshaka" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1 rounded-2xl overflow-hidden">
+                  <img src="/hero3.webp" alt="Pasien Medika Arshaka" class="w-full h-full object-cover">
+                </div>
+              </div>
+            </div>
+
+            {{-- Floating card: Kepuasan —— anchored top-left --}}
+            <div class="absolute top-4 -left-4 lg:-left-10 bg-white rounded-2xl shadow-xl border border-slate-100 px-4 py-3 flex items-center gap-3 z-10">
+              <div class="w-10 h-10 rounded-xl bg-accent-50 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="star" class="w-5 h-5 text-accent-500"></i>
+              </div>
+              <div>
+                <div class="text-sm font-bold text-slate-900">98%</div>
+                <div class="text-xs text-slate-400 whitespace-nowrap">Kepuasan Orang Tua</div>
+              </div>
+            </div>
+
+            {{-- Floating card: Dokter —— anchored bottom-right --}}
+            <div class="absolute bottom-6 -right-4 lg:-right-10 bg-white rounded-2xl shadow-xl border border-slate-100 px-4 py-3 flex items-center gap-3 z-10">
+              <div class="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="shield-check" class="w-5 h-5 text-primary-600"></i>
+              </div>
+              <div>
+                <div class="text-sm font-bold text-slate-900">4 Dokter</div>
+                <div class="text-xs text-slate-400 whitespace-nowrap">Bersertifikat</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {{-- ═══════════════════════════════════════════════════
+          TRUST BAR
+      ════════════════════════════════════════════════════ --}}
+      <section class="py-8">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="relative bg-gradient-to-br from-primary-800 via-primary-700 to-primary-600 rounded-2xl px-8 lg:px-14 py-10 overflow-hidden">
+
+            {{-- Decorative rings --}}
+            <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full border border-white/10 pointer-events-none" aria-hidden="true"></div>
+            <div class="absolute -top-12 -right-12 w-52 h-52 rounded-full border border-white/10 pointer-events-none" aria-hidden="true"></div>
+            <div class="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-white/5 pointer-events-none" aria-hidden="true"></div>
+
+            <div class="relative grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-6">
+              @each(stat in [
+                { icon: 'users', value: '1.200+', label: 'Pasien Ditangani' },
+                { icon: 'clock', value: '5+ Tahun', label: 'Pengalaman Klinis' },
+                { icon: 'stethoscope', value: '4 Dokter', label: 'Dokter Bersertifikat' },
+                { icon: 'heart', value: '98%', label: 'Kepuasan Orang Tua' },
+              ])
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="{{ stat.icon }}" class="w-5 h-5 text-white"></i>
+                  </div>
+                  <div>
+                    <div class="text-2xl lg:text-3xl font-bold text-white leading-none">{{ stat.value }}</div>
+                    <div class="text-xs text-primary-200 mt-1.5 font-label">{{ stat.label }}</div>
+                  </div>
+                </div>
+              @end
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {{-- ═══════════════════════════════════════════════════
+          SERVICE
+      ════════════════════════════════════════════════════ --}}
+      <section id="layanan" class="py-16 lg:py-20">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] rounded-3xl overflow-hidden">
+
+            {{-- Left: Dark headline panel --}}
+            <div class="relative bg-primary-900 px-10 lg:px-14 py-16 flex flex-col justify-center overflow-hidden">
+              <div class="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-primary-800 pointer-events-none" aria-hidden="true"></div>
+              <div class="absolute -top-16 -left-16 w-52 h-52 rounded-full bg-primary-800/50 pointer-events-none" aria-hidden="true"></div>
+
+              <div class="relative">
+                <div class="inline-flex bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-7">
+                  <span class="text-xs font-semibold text-white/75 font-label tracking-wide uppercase">Layanan Kami</span>
+                </div>
+                <h2 class="text-[2rem] lg:text-[2.5rem] font-bold leading-[1.15] tracking-tight text-white mb-5">
+                  Satu Layanan,<br>Fokus Sempurna
+                </h2>
+                <p class="text-primary-300 leading-relaxed mb-10 text-[0.95rem]">
+                  Kami hadir khusus untuk satu layanan: sunat. Fokus ini bukan keterbatasan — justru inilah yang membuat kami unggul.
+                </p>
+                <a href="https://wa.me/6285946132660"
+                   class="inline-flex items-center gap-2 px-6 py-3 bg-accent-500 text-white text-sm font-semibold rounded-full hover:bg-accent-600 transition-all hover:shadow-lg hover:shadow-accent-500/40">
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
+                  Konsultasi Gratis
+                </a>
+              </div>
+            </div>
+
+            {{-- Right: Clean feature rows --}}
+            <div class="bg-white px-10 lg:px-14 flex flex-col divide-y divide-slate-100">
+              @each(point in [
+                { icon: 'heart', title: 'Aman & Nyaman', desc: 'Prosedur di ruangan bersih dan steril. Anak Anda ditangani dengan penuh kehati-hatian agar merasa nyaman dari awal hingga selesai.' },
+                { icon: 'banknote', title: 'Harga Terjangkau', desc: 'Layanan berkualitas dokter berpengalaman dengan harga yang bersahabat. Tidak perlu khawatir soal biaya berlebih.' },
+                { icon: 'award', title: 'Dokter Bersertifikat', desc: 'Setiap prosedur ditangani langsung oleh dokter yang telah terlatih, bersertifikat, dan berpengalaman ratusan pasien.' },
+              ])
+                <div class="flex items-start gap-5 py-9">
+                  <div class="w-12 h-12 rounded-2xl bg-primary-50 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="{{ point.icon }}" class="w-5 h-5 text-primary-600"></i>
+                  </div>
+                  <div>
+                    <div class="font-semibold text-slate-900 mb-1.5">{{ point.title }}</div>
+                    <div class="text-sm text-slate-500 leading-relaxed">{{ point.desc }}</div>
+                  </div>
+                </div>
+              @end
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {{-- ═══════════════════════════════════════════════════
+          METHOD
+      ════════════════════════════════════════════════════ --}}
+      <section id="metode" class="relative py-24 bg-slate-50 overflow-hidden" x-data="{ tab: 'klem' }">
+
+        <div class="relative max-w-6xl mx-auto px-6">
+
+          {{-- Header --}}
+          <div class="text-center mb-12">
+            <div class="inline-flex bg-primary-50 border border-primary-200 rounded-full px-4 py-1.5 mb-5">
+              <span class="text-xs font-semibold text-primary-700 font-label tracking-wide uppercase">Metode Kami</span>
+            </div>
+            <h2 class="text-[2rem] lg:text-[2.5rem] font-bold leading-[1.15] tracking-tight text-slate-900 mb-4">
+              Teknologi Modern,<br>Rasa Khawatir Berkurang
+            </h2>
+            <p class="text-slate-500 max-w-xl mx-auto leading-relaxed">
+              Kami menggunakan metode sunat modern yang minim rasa sakit, proses lebih cepat, dan pemulihan lebih singkat dibanding metode konvensional.
+            </p>
+          </div>
+
+          {{-- Tab switcher --}}
+          <div class="flex justify-center gap-2 mb-12">
+            <button @click="tab = 'klem'"
+                    :class="tab === 'klem' ? 'bg-primary-600 text-white' : 'bg-white text-slate-500 border border-slate-200 hover:border-primary-300 hover:text-primary-600'"
+                    class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all">
+              Metode Klem
+            </button>
+            <button @click="tab = 'konvensional'"
+                    :class="tab === 'konvensional' ? 'bg-primary-600 text-white' : 'bg-white text-slate-500 border border-slate-200 hover:border-primary-300 hover:text-primary-600'"
+                    class="px-6 py-2.5 rounded-full text-sm font-semibold transition-all">
+              Metode Konvensional
+            </button>
+          </div>
+
+          {{-- Panel: Klem --}}
+          <div x-show="tab === 'klem'" x-transition>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <div class="bg-gradient-to-br from-primary-100 to-primary-200 rounded-3xl aspect-[4/3] flex items-center justify-center">
+                <div class="flex flex-col items-center gap-2 text-primary-400 opacity-50">
+                  <i data-lucide="image" class="w-10 h-10"></i>
+                  <span class="text-sm font-label">Foto Prosedur Klem</span>
+                </div>
+              </div>
+              <div>
+                <div class="inline-flex bg-primary-100 text-primary-700 text-xs font-bold font-label px-3 py-1 rounded-full mb-5 tracking-wide">01 — KLEM</div>
+                <h3 class="text-2xl lg:text-3xl font-bold text-slate-900 mb-4 leading-tight">
+                  Metode Klem<br><span class="text-primary-600">Gomco / Plastibell</span>
+                </h3>
+                <p class="text-slate-500 leading-relaxed mb-8">
+                  Metode ikat tanpa jahitan yang umum digunakan untuk bayi dan anak kecil. Proses cepat, minim pendarahan, dan penyembuhan berlangsung alami.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  @each(pt in ['Tanpa jahitan', 'Cocok untuk bayi & balita', 'Pemulihan 7–10 hari', 'Minim risiko komplikasi'])
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-white border border-primary-100 rounded-full text-sm text-primary-700 font-medium">
+                      <i data-lucide="check" class="w-3.5 h-3.5 text-primary-500 flex-shrink-0"></i>
+                      {{ pt }}
+                    </span>
+                  @end
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {{-- Panel: Konvensional --}}
+          <div x-show="tab === 'konvensional'" x-transition style="display:none">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <div class="bg-gradient-to-br from-primary-100 to-primary-200 rounded-3xl aspect-[4/3] flex items-center justify-center">
+                <div class="flex flex-col items-center gap-2 text-primary-400 opacity-50">
+                  <i data-lucide="image" class="w-10 h-10"></i>
+                  <span class="text-sm font-label">Foto Prosedur Konvensional</span>
+                </div>
+              </div>
+              <div>
+                <div class="inline-flex bg-primary-100 text-primary-700 text-xs font-bold font-label px-3 py-1 rounded-full mb-5 tracking-wide">02 — KONVENSIONAL</div>
+                <h3 class="text-2xl lg:text-3xl font-bold text-slate-900 mb-4 leading-tight">
+                  Metode Konvensional<br><span class="text-primary-600">Bedah Minor</span>
+                </h3>
+                <p class="text-slate-500 leading-relaxed mb-8">
+                  Metode klasik yang telah teruji dan aman. Dilakukan dengan anestesi lokal sehingga anak tidak merasakan sakit selama prosedur berlangsung.
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  @each(pt in ['Teruji & terpercaya', 'Cocok untuk semua usia', 'Ditangani langsung dokter', 'Hasil rapi & permanen'])
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-white border border-primary-100 rounded-full text-sm text-primary-700 font-medium">
+                      <i data-lucide="check" class="w-3.5 h-3.5 text-primary-500 flex-shrink-0"></i>
+                      {{ pt }}
+                    </span>
+                  @end
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {{-- CTA strip --}}
+          <div class="mt-14 bg-white border border-slate-200 rounded-2xl px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <div class="font-semibold text-slate-800">Tidak yakin metode mana yang paling cocok?</div>
+              <div class="text-sm text-slate-400 mt-0.5">Konsultasikan langsung dengan dokter kami — gratis, tanpa tekanan.</div>
+            </div>
+            <a href="https://wa.me/6285946132660"
+               class="flex items-center gap-2 px-6 py-3 bg-accent-500 text-white text-sm font-semibold rounded-full hover:bg-accent-600 transition-all whitespace-nowrap hover:shadow-lg hover:shadow-accent-500/30 flex-shrink-0">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              Tanya Dokter — Gratis
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      {{-- ═══════════════════════════════════════════════════
+          PRICELIST
+      ════════════════════════════════════════════════════ --}}
+      <section id="harga" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+
+          {{-- Header --}}
+          <div class="text-center mb-14">
+            <div class="inline-flex bg-primary-50 border border-primary-200 rounded-full px-4 py-1.5 mb-5">
+              <span class="text-xs font-semibold text-primary-700 font-label tracking-wide uppercase">Biaya Layanan</span>
+            </div>
+            <h2 class="text-[2rem] lg:text-[2.5rem] font-bold leading-[1.15] tracking-tight text-slate-900 mb-4">
+              Transparan, Terjangkau,<br>Tanpa Biaya Tersembunyi
+            </h2>
+            <p class="text-slate-500 max-w-lg mx-auto leading-relaxed">
+              Kami percaya orang tua berhak tahu biaya sejelas-jelasnya sebelum memutuskan. Tidak ada biaya kejutan setelah prosedur selesai.
+            </p>
+          </div>
+
+          {{-- Cards --}}
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-7 items-stretch">
+
+            {{-- Paket Hemat --}}
+            <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col hover:border-primary-200 hover:shadow-sm transition-all">
+              <div class="text-xs font-bold font-label uppercase tracking-widest text-slate-400 mb-5">Paket Hemat</div>
+              <div class="mb-1">
+                <span class="text-[2.5rem] font-bold leading-none text-slate-900">Rp 350</span><span class="text-xl font-bold text-slate-400">.000</span>
+              </div>
+              <div class="text-sm text-slate-400 mb-7">Metode Konvensional</div>
+              <ul class="flex flex-col gap-3 flex-1 mb-8">
+                @each(f in ['Tindakan oleh dokter bersertifikat', 'Anestesi lokal', 'Alat medis steril & sekali pakai', '1x konsultasi sebelum tindakan'])
+                  <li class="flex items-start gap-2.5 text-sm text-slate-600">
+                    <i data-lucide="check" class="w-4 h-4 text-primary-500 flex-shrink-0 mt-0.5"></i>
+                    {{ f }}
+                  </li>
+                @end
+              </ul>
+              <a href="https://wa.me/6285946132660"
+                 class="flex items-center justify-center gap-2 px-5 py-3 border border-slate-200 text-slate-700 text-sm font-semibold rounded-full hover:border-primary-300 hover:text-primary-700 transition-colors">
+                Pilih Paket Ini
               </a>
+            </div>
+
+            {{-- Paket Standar --}}
+            <div class="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col hover:border-primary-200 hover:shadow-sm transition-all">
+              <div class="text-xs font-bold font-label uppercase tracking-widest text-slate-400 mb-5">Paket Standar</div>
+              <div class="mb-1">
+                <span class="text-[2.5rem] font-bold leading-none text-slate-900">Rp 550</span><span class="text-xl font-bold text-slate-400">.000</span>
+              </div>
+              <div class="text-sm text-slate-400 mb-7">Metode Klem</div>
+              <ul class="flex flex-col gap-3 flex-1 mb-8">
+                @each(f in ['Tindakan oleh dokter bersertifikat', 'Anestesi lokal', 'Tanpa jahitan, pemulihan lebih cepat', 'Alat medis steril & sekali pakai', '1x konsultasi sebelum tindakan', '1x kontrol pasca sunat'])
+                  <li class="flex items-start gap-2.5 text-sm text-slate-600">
+                    <i data-lucide="check" class="w-4 h-4 text-primary-500 flex-shrink-0 mt-0.5"></i>
+                    {{ f }}
+                  </li>
+                @end
+              </ul>
+              <a href="https://wa.me/6285946132660"
+                 class="flex items-center justify-center gap-2 px-5 py-3 border border-slate-200 text-slate-700 text-sm font-semibold rounded-full hover:border-primary-300 hover:text-primary-700 transition-colors">
+                Pilih Paket Ini
+              </a>
+            </div>
+
+            {{-- Paket Lengkap — Popular --}}
+            <div class="relative bg-primary-900 rounded-3xl p-8 flex flex-col shadow-xl shadow-primary-900/20">
+              {{-- Badge --}}
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 bg-accent-500 text-white text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap">
+                <i data-lucide="star" class="w-3.5 h-3.5"></i>
+                Paling Populer
+              </div>
+              <div class="text-xs font-bold font-label uppercase tracking-widest text-primary-400 mb-5">Paket Lengkap</div>
+              <div class="mb-1">
+                <span class="text-[2.5rem] font-bold leading-none text-white">Rp 750</span><span class="text-xl font-bold text-primary-400">.000</span>
+              </div>
+              <div class="text-sm text-primary-300 mb-7">Klem + Obat + Kontrol</div>
+              <ul class="flex flex-col gap-3 flex-1 mb-8">
+                @each(f in ['Tindakan oleh dokter bersertifikat', 'Anestesi lokal', 'Tanpa jahitan, pemulihan lebih cepat', 'Alat medis steril & sekali pakai', '1x konsultasi sebelum tindakan', 'Obat perawatan pasca sunat (antibiotik + salep)', '2x kontrol pasca sunat', 'Konsultasi WhatsApp selama masa pemulihan'])
+                  <li class="flex items-start gap-2.5 text-sm text-primary-100">
+                    <i data-lucide="check" class="w-4 h-4 text-accent-400 flex-shrink-0 mt-0.5"></i>
+                    {{ f }}
+                  </li>
+                @end
+              </ul>
+              <a href="https://wa.me/6285946132660"
+                 class="flex items-center justify-center gap-2 px-5 py-3 bg-accent-500 text-white text-sm font-semibold rounded-full hover:bg-accent-600 transition-all hover:shadow-lg hover:shadow-accent-500/30">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                Booking via WhatsApp
+              </a>
+            </div>
+
+          </div>
+
+          {{-- Footnote --}}
+          <p class="text-center text-sm text-slate-400 mt-8">
+            Semua paket sudah termasuk biaya dokter, tindakan, dan perlengkapan medis. Tidak ada biaya tambahan.
+          </p>
+
+        </div>
+      </section>
+
+      {{-- ═══════════════════════════════════════════════════
+          DOCTOR
+      ════════════════════════════════════════════════════ --}}
+      <section id="dokter" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+
+          {{-- Header: split — headline left, body right --}}
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end mb-16">
+            <div>
+              <div class="inline-flex bg-primary-50 border border-primary-200 rounded-full px-4 py-1.5 mb-6">
+                <span class="text-xs font-semibold text-primary-700 font-label tracking-wide uppercase">Tim Medis Kami</span>
+              </div>
+              <h2 class="text-[2rem] lg:text-[2.5rem] font-bold leading-[1.15] tracking-tight text-slate-900">
+                Kenali Dokter yang Akan<br>Menangani Buah Hati Anda
+              </h2>
+            </div>
+            <div class="lg:pb-1">
+              <p class="text-slate-500 leading-relaxed mb-5">
+                Setiap dokter dipilih bukan hanya karena kompetensinya — tapi juga karena kemampuannya membuat anak dan orang tua merasa tenang.
+              </p>
+              <p class="text-sm text-slate-400">
+                Semua dokter berpraktik bergantian.
+                <a href="https://wa.me/6285946132660" class="text-primary-600 font-medium hover:underline">Tanya jadwal via WhatsApp →</a>
+              </p>
+            </div>
+          </div>
+
+          {{-- Doctor cards — staggered asymmetric --}}
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+
+            {{-- dr. Ahmad Fauzan — no offset, tallest photo --}}
+            <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+              <div class="bg-gradient-to-b from-primary-100 to-primary-200 aspect-[3/4] flex items-center justify-center">
+                <i data-lucide="user" class="w-10 h-10 text-primary-300 opacity-70"></i>
+              </div>
+              <div class="p-5">
+                <div class="inline-flex bg-primary-50 text-primary-700 text-[10px] font-bold font-label px-2.5 py-1 rounded-full tracking-wide uppercase mb-2.5">Bedah Minor</div>
+                <div class="font-bold text-slate-900 text-sm leading-snug">dr. Ahmad Fauzan</div>
+                <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">7 tahun, 800+ pasien. Sabar dan komunikatif dalam menjelaskan prosedur.</p>
+              </div>
+            </div>
+
+            {{-- dr. Rizky Pratama — pushed down most --}}
+            <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 lg:mt-14">
+              <div class="bg-gradient-to-b from-primary-50 to-primary-100 aspect-[4/5] flex items-center justify-center">
+                <i data-lucide="user" class="w-10 h-10 text-primary-200 opacity-80"></i>
+              </div>
+              <div class="p-5">
+                <div class="inline-flex bg-primary-50 text-primary-700 text-[10px] font-bold font-label px-2.5 py-1 rounded-full tracking-wide uppercase mb-2.5">Metode Klem</div>
+                <div class="font-bold text-slate-900 text-sm leading-snug">dr. Rizky Pratama</div>
+                <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Spesialis bayi & balita. Pendekatan lembut, 4 tahun pengalaman.</p>
+              </div>
+            </div>
+
+            {{-- dr. Hendra Kusuma — subtle offset --}}
+            <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 lg:mt-6">
+              <div class="bg-gradient-to-b from-primary-100 to-primary-200 aspect-[3/4] flex items-center justify-center">
+                <i data-lucide="user" class="w-10 h-10 text-primary-300 opacity-70"></i>
+              </div>
+              <div class="p-5">
+                <div class="inline-flex bg-primary-50 text-primary-700 text-[10px] font-bold font-label px-2.5 py-1 rounded-full tracking-wide uppercase mb-2.5">Minor & Klem</div>
+                <div class="font-bold text-slate-900 text-sm leading-snug">dr. Hendra Kusuma</div>
+                <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Ahli kedua metode, 6 tahun. Berpengalaman menangani kondisi khusus.</p>
+              </div>
+            </div>
+
+            {{-- dr. Nisa Rahmawati — medium offset, shorter photo --}}
+            <div class="bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 lg:mt-20">
+              <div class="bg-gradient-to-b from-primary-50 to-primary-100 aspect-square flex items-center justify-center">
+                <i data-lucide="user" class="w-10 h-10 text-primary-200 opacity-80"></i>
+              </div>
+              <div class="p-5">
+                <div class="inline-flex bg-primary-50 text-primary-700 text-[10px] font-bold font-label px-2.5 py-1 rounded-full tracking-wide uppercase mb-2.5">Sunat Anak</div>
+                <div class="font-bold text-slate-900 text-sm leading-snug">dr. Nisa Rahmawati</div>
+                <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Dokter perempuan di tim kami, 3 tahun. Pilihan pendamping untuk orang tua yang menginginkan dokter perempuan.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {{-- ═══════════════════════════════════════════════════
+          TESTIMONI
+      ════════════════════════════════════════════════════ --}}
+      <section class="relative bg-slate-900 py-24 overflow-hidden">
+
+        {{-- Decorative blobs --}}
+        <div class="absolute -top-28 -right-28 w-80 h-80 rounded-full bg-primary-800/20 pointer-events-none" aria-hidden="true"></div>
+        <div class="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-primary-800/15 pointer-events-none" aria-hidden="true"></div>
+
+        {{-- Large decorative quote mark --}}
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 text-[14rem] font-bold text-white/[0.03] leading-none font-heading select-none pointer-events-none" aria-hidden="true">❝</div>
+
+        <div class="relative max-w-6xl mx-auto px-6">
+
+          {{-- Header --}}
+          <div class="text-center mb-14">
+            <div class="inline-flex bg-white/10 border border-white/15 rounded-full px-4 py-1.5 mb-5">
+              <span class="text-xs font-semibold text-white/60 font-label tracking-wide uppercase">Kata Orang Tua Kami</span>
+            </div>
+            <h2 class="text-[2rem] lg:text-[2.6rem] font-bold leading-[1.1] tracking-tight text-white mb-4">
+              Mereka Datang Khawatir,<br>Pulang dengan Senyuman
+            </h2>
+            <p class="text-slate-400 max-w-md mx-auto leading-relaxed">
+              Lebih dari 1.200 orang tua telah mempercayakan buah hati mereka kepada kami.
+            </p>
+          </div>
+
+          {{-- Cards: white on dark --}}
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+            {{-- Testimoni 1 --}}
+            <div class="bg-white rounded-3xl p-7 flex flex-col">
+              <div class="text-accent-500 text-base mb-5 tracking-wide">★★★★★</div>
+              <p class="text-slate-700 leading-relaxed text-sm flex-1 mb-6">
+                "Awalnya anak saya nangis terus pas mau masuk ruangan. Tapi dokternya sabar banget, diajak ngobrol dulu sampai tenang. Prosesnya cepat dan langsung bisa pulang. Alhamdulillah puas banget!"
+              </p>
+              <div class="pt-5 border-t border-slate-100 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="user" class="w-4 h-4 text-primary-400"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-semibold text-slate-900">Ibu Sari W.</div>
+                  <div class="text-xs text-slate-400">Tangerang</div>
+                </div>
+              </div>
+            </div>
+
+            {{-- Testimoni 2 --}}
+            <div class="bg-white rounded-3xl p-7 flex flex-col">
+              <div class="text-accent-500 text-base mb-5 tracking-wide">★★★★★</div>
+              <p class="text-slate-700 leading-relaxed text-sm flex-1 mb-6">
+                "Sudah 2 anak saya sunat di sini. Yang pertama pakai metode konvensional, yang kedua pakai klem. Keduanya lancar dan dokternya profesional. Harganya juga masuk akal."
+              </p>
+              <div class="pt-5 border-t border-slate-100 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="user" class="w-4 h-4 text-primary-400"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-semibold text-slate-900">Bapak Deni R.</div>
+                  <div class="text-xs text-slate-400">Pinang</div>
+                </div>
+              </div>
+            </div>
+
+            {{-- Testimoni 3 --}}
+            <div class="bg-white rounded-3xl p-7 flex flex-col">
+              <div class="text-accent-500 text-base mb-5 tracking-wide">★★★★★</div>
+              <p class="text-slate-700 leading-relaxed text-sm flex-1 mb-6">
+                "Tempatnya bersih, dokternya ramah dan mau menjelaskan prosedurnya dengan detail. Saya yang tadinya khawatir jadi tenang setelah dikonsultasi dulu. Sangat recommended!"
+              </p>
+              <div class="pt-5 border-t border-slate-100 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="user" class="w-4 h-4 text-primary-400"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-semibold text-slate-900">Ibu Maya H.</div>
+                  <div class="text-xs text-slate-400">Ciledug</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {{-- Bottom strip --}}
+          <div class="mt-12 pt-10 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="text-center sm:text-left">
+              <div class="text-3xl font-bold text-white leading-none">1.200+</div>
+              <div class="text-sm text-slate-400 mt-1.5">orang tua telah mempercayakan buah hatinya kepada kami</div>
+            </div>
+            <a href="https://wa.me/6285946132660"
+               class="flex items-center gap-2 px-7 py-3.5 bg-accent-500 text-white font-semibold rounded-full hover:bg-accent-600 transition-all hover:shadow-lg hover:shadow-accent-500/30 flex-shrink-0">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              Konsultasi Gratis
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      {{-- ═══════════════════════════════════════════════════
+          MAPS
+      ════════════════════════════════════════════════════ --}}
+      <section id="lokasi" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+            {{-- Left: info panel --}}
+            <div>
+              <div class="inline-flex bg-primary-50 border border-primary-200 rounded-full px-4 py-1.5 mb-6">
+                <span class="text-xs font-semibold text-primary-700 font-label tracking-wide uppercase">Temukan Kami</span>
+              </div>
+              <h2 class="text-[2rem] lg:text-[2.5rem] font-bold leading-[1.15] tracking-tight text-slate-900 mb-4">
+                Mudah Dijangkau,<br>Dekat dari Rumah Anda
+              </h2>
+              <p class="text-slate-500 leading-relaxed mb-10">
+                Kami berlokasi di Neroktog, Kecamatan Pinang, Kota Tangerang — strategis dan mudah diakses dari Ciledug, Karawaci, maupun Cikokol.
+              </p>
+
+              {{-- Address --}}
+              <div class="flex items-start gap-4 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <i data-lucide="map-pin" class="w-5 h-5 text-primary-600"></i>
+                </div>
+                <div>
+                  <div class="text-xs font-bold font-label text-slate-400 uppercase tracking-wide mb-1.5">Alamat</div>
+                  <div class="text-sm text-slate-700 leading-relaxed">
+                    Gg. H. Yunus, RT.001/RW.003,<br>
+                    Neroktog, Kec. Pinang,<br>
+                    Kota Tangerang, Banten 15145
+                  </div>
+                </div>
+              </div>
+
+              {{-- Hours --}}
+              <div class="flex items-start gap-4 mb-10">
+                <div class="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <i data-lucide="clock" class="w-5 h-5 text-primary-600"></i>
+                </div>
+                <div>
+                  <div class="text-xs font-bold font-label text-slate-400 uppercase tracking-wide mb-2.5">Jam Operasional</div>
+                  <div class="flex flex-col gap-2">
+                    @each(h in [
+                      { day: 'Senin–Jumat', hours: '08.00–20.00' },
+                      { day: 'Sabtu', hours: '08.00–17.00' },
+                      { day: 'Minggu', hours: '09.00–15.00' },
+                    ])
+                      <div class="flex items-center gap-3 text-sm">
+                        <span class="text-slate-400 w-28">{{ h.day }}</span>
+                        <span class="text-slate-700 font-medium">{{ h.hours }}</span>
+                      </div>
+                    @end
+                  </div>
+                </div>
+              </div>
+
+              <a href="https://maps.google.com/?q=Gg.+H.+Yunus,+RT.001/RW.003,+Neroktog,+Kec.+Pinang,+Kota+Tangerang,+Banten+15145"
+                 target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 px-6 py-3 border border-primary-300 text-primary-700 text-sm font-semibold rounded-full hover:bg-primary-50 hover:border-primary-400 transition-all">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                Buka di Google Maps
+              </a>
+            </div>
+
+            {{-- Right: map embed --}}
+            <div class="relative rounded-3xl overflow-hidden shadow-xl shadow-slate-200/80 border border-slate-100 aspect-[4/3]">
+              <iframe
+                src="https://maps.google.com/maps?q=Gg.+H.+Yunus+Neroktog+Pinang+Tangerang+Banten&output=embed"
+                class="absolute inset-0 w-full h-full"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Lokasi Rumah Sunat Medika Arshaka"
+              ></iframe>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {{-- ═══════════════════════════════════════════════════
+          CTA FINAL
+      ════════════════════════════════════════════════════ --}}
+      <section class="relative bg-gradient-to-br from-primary-950 via-primary-900 to-primary-700 py-28 lg:py-40 overflow-hidden">
+
+        {{-- Concentric rings: centered radiating outward --}}
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+          <div class="w-[500px] h-[500px] rounded-full border border-white/[0.06]"></div>
+        </div>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+          <div class="w-[800px] h-[800px] rounded-full border border-white/[0.04]"></div>
+        </div>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
+          <div class="w-[1100px] h-[1100px] rounded-full border border-white/[0.025]"></div>
+        </div>
+
+        {{-- Ambient glow behind content --}}
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-primary-600/25 blur-3xl pointer-events-none" aria-hidden="true"></div>
+        {{-- Warm accent glow --}}
+        <div class="absolute -bottom-16 right-1/4 w-72 h-72 rounded-full bg-accent-500/10 blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+        <div class="relative max-w-3xl mx-auto px-6 text-center">
+
+          {{-- Label --}}
+          <div class="inline-flex bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-8">
+            <span class="text-xs font-semibold text-white/70 font-label tracking-wide uppercase">Mulai Hari Ini</span>
+          </div>
+
+          {{-- Headline --}}
+          <h2 class="text-[2.6rem] lg:text-[4rem] font-bold leading-[1.0] tracking-tight text-white mb-6">
+            Siap Jadwalkan<br>Sunat Si Kecil?
+          </h2>
+
+          {{-- Body --}}
+          <p class="text-primary-200 text-lg leading-relaxed max-w-xl mx-auto mb-12">
+            Jangan tunda lagi. Konsultasikan kebutuhan buah hati Anda langsung dengan tim kami — gratis, tanpa tekanan.
+          </p>
+
+          {{-- Primary CTA --}}
+          <a href="https://wa.me/6285946132660"
+             class="inline-flex items-center gap-3 px-10 py-5 bg-accent-500 text-white font-bold text-base rounded-full hover:bg-accent-600 transition-all duration-200 hover:shadow-2xl hover:shadow-accent-500/40 hover:-translate-y-0.5 active:translate-y-0">
+            <i data-lucide="message-circle" class="w-5 h-5"></i>
+            Booking via WhatsApp Sekarang
+          </a>
+
+          {{-- Phone fallback --}}
+          <div class="mt-5 text-sm text-primary-400">
+            atau hubungi: <a href="tel:+6285946132660" class="text-primary-200 font-semibold hover:text-white transition-colors">0859-4613-2660</a>
+          </div>
+
+          {{-- Trust strip --}}
+          <div class="mt-20 pt-10 border-t border-white/10 grid grid-cols-3 gap-6">
+            @each(stat in [
+              { value: '1.200+', label: 'Pasien Ditangani' },
+              { value: '98%', label: 'Kepuasan Orang Tua' },
+              { value: 'Gratis', label: 'Konsultasi Awal' },
+            ])
+              <div class="text-center">
+                <div class="text-2xl lg:text-3xl font-bold text-white leading-none">{{ stat.value }}</div>
+                <div class="text-xs text-primary-400 mt-2 font-label tracking-wide">{{ stat.label }}</div>
+              </div>
             @end
           </div>
 
         </div>
-      </main>
+      </section>
 
-      {{-- Version footer --}}
-      <footer class="relative z-10 flex items-center justify-center px-8 py-6">
-        <p class="text-xs text-slate-700 tracking-widest uppercase">
-          Bun &nbsp;·&nbsp; Elysia v1 &nbsp;·&nbsp; SurrealDB &nbsp;·&nbsp; EdgeJS
-        </p>
+      {{-- ═══════════════════════════════════════════════════
+          FOOTER
+      ════════════════════════════════════════════════════ --}}
+      <footer class="bg-primary-950 text-white">
+        <div class="max-w-6xl mx-auto px-6 pt-16 pb-10">
+
+          <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-10 lg:gap-16 pb-12 border-b border-white/[0.07]">
+
+            {{-- Brand --}}
+            <div>
+              <div class="font-heading font-bold text-white text-xl leading-none mb-5">
+                Rumah Sunat<br><span class="text-primary-400">Medika Arshaka</span>
+              </div>
+              <p class="text-sm text-primary-400 leading-relaxed max-w-xs mb-7">
+                Klinik sunat modern yang membuat anak dan orang tua merasa tenang.
+              </p>
+              <a href="https://instagram.com/rumahsunatmedikaarshaka" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 text-sm text-primary-500 hover:text-primary-200 transition-colors">
+                <i data-lucide="at-sign" class="w-4 h-4"></i>
+                @rumahsunatmedikaarshaka
+              </a>
+            </div>
+
+            {{-- Kontak --}}
+            <div>
+              <div class="text-xs font-bold font-label text-primary-600 uppercase tracking-widest mb-6">Kontak</div>
+              <div class="flex flex-col gap-4">
+                <a href="tel:+6285946132660"
+                   class="flex items-start gap-3 text-sm text-primary-400 hover:text-white transition-colors group">
+                  <i data-lucide="phone" class="w-4 h-4 text-primary-600 flex-shrink-0 mt-0.5 group-hover:text-primary-400 transition-colors"></i>
+                  0859-4613-2660
+                </a>
+                <a href="https://wa.me/6285946132660"
+                   class="flex items-start gap-3 text-sm text-primary-400 hover:text-white transition-colors group">
+                  <i data-lucide="message-circle" class="w-4 h-4 text-primary-600 flex-shrink-0 mt-0.5 group-hover:text-primary-400 transition-colors"></i>
+                  WhatsApp Kami
+                </a>
+                <div class="flex items-start gap-3 text-sm text-primary-400">
+                  <i data-lucide="map-pin" class="w-4 h-4 text-primary-600 flex-shrink-0 mt-0.5"></i>
+                  <span class="leading-relaxed">Neroktog, Kec. Pinang,<br>Kota Tangerang</span>
+                </div>
+              </div>
+            </div>
+
+            {{-- Jam Operasional --}}
+            <div>
+              <div class="text-xs font-bold font-label text-primary-600 uppercase tracking-widest mb-6">Jam Operasional</div>
+              <div class="flex flex-col gap-4">
+                @each(h in [
+                  { day: 'Senin–Jumat', hours: '08.00–20.00' },
+                  { day: 'Sabtu', hours: '08.00–17.00' },
+                  { day: 'Minggu', hours: '09.00–15.00' },
+                ])
+                  <div>
+                    <div class="text-xs text-primary-600 font-label mb-0.5">{{ h.day }}</div>
+                    <div class="text-sm text-primary-300 font-medium">{{ h.hours }}</div>
+                  </div>
+                @end
+              </div>
+            </div>
+
+          </div>
+
+          {{-- Bottom bar --}}
+          <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div class="text-xs text-primary-700">
+              © 2026 Rumah Sunat Medika Arshaka. All rights reserved.
+            </div>
+            <div class="text-xs text-primary-700">
+              Klinik Sunat Terpercaya di Tangerang
+            </div>
+          </div>
+
+        </div>
       </footer>
 
     </div>

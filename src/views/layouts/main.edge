@@ -6,7 +6,7 @@
   <title>{{{ await $slots.title?.() ?? 'njin' }}}</title>
   {{{ await vite.asset('src/client/main.ts') }}}
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased">
+<body class="bg-white text-slate-800 antialiased font-body">
   {{{ await $slots.main() }}}
 </body>
 </html>

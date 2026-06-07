@@ -1,2 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Martian+Mono:wght@100..800&family=Schibsted+Grotesk:ital,wght@0,400..700;1,400..700&display=swap');
 @import "tailwindcss";
 @source "../views/**/*.edge";
+
+@theme {
+  /* ─────────────────────────────────────────────
+     Typography
+     ───────────────────────────────────────────── */
+  --font-heading: 'Bricolage Grotesque', sans-serif;
+  --font-body:    'Figtree', sans-serif;
+  --font-label:   'Schibsted Grotesk', sans-serif;
+  --font-mono:    'Martian Mono', monospace;
+
+  /* ─────────────────────────────────────────────
+     Primary — #3852B4  (hsl 227 53% 46%)
+     ───────────────────────────────────────────── */
+  --color-primary-50:  hsl(227 60% 97%);
+  --color-primary-100: hsl(227 57% 93%);
+  --color-primary-200: hsl(227 55% 86%);
+  --color-primary-300: hsl(227 54% 74%);
+  --color-primary-400: hsl(227 53% 62%);
+  --color-primary-500: hsl(227 53% 54%);
+  --color-primary-600: #3852B4;
+  --color-primary-700: hsl(227 54% 38%);
+  --color-primary-800: hsl(227 55% 28%);
+  --color-primary-900: hsl(227 56% 18%);
+  --color-primary-950: hsl(227 57% 12%);
+
+  /* ─────────────────────────────────────────────
+     Accent / CTA — #F08D39  (hsl 28 86% 58%)
+     ───────────────────────────────────────────── */
+  --color-accent-50:  hsl(28 100% 97%);
+  --color-accent-100: hsl(28 95% 93%);
+  --color-accent-200: hsl(28 90% 86%);
+  --color-accent-300: hsl(28 88% 74%);
+  --color-accent-400: hsl(28 87% 66%);
+  --color-accent-500: #F08D39;
+  --color-accent-600: hsl(28 82% 49%);
+  --color-accent-700: hsl(27 80% 40%);
+  --color-accent-800: hsl(27 78% 30%);
+  --color-accent-900: hsl(27 78% 20%);
+  --color-accent-950: hsl(27 78% 13%);
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
